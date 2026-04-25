@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --wa-bg: #eae6df;
+  --wa-bubble-out: #d9fdd3;
+  --wa-bubble-in: #ffffff;
+  --wa-text: #111b21;
+  --wa-text-secondary: #667781;
+  --wa-sidebar-bg: #ffffff;
+  --wa-input-bg: #f0f2f5;
+  --wa-border: #e2e8eb;
+  --wa-icon: #54656f;
+  --wa-unread: #25d366;
+  --wa-header-bg: #f0f2f5;
+  --wa-hover: #f5f6f6;
+  --wa-active: #e9edef;
+  --wa-outer-bg: #d1d7db;
+  --wa-top-bar: #008069;
+  --wa-quote-bg: #d1f4cc;
+  --wa-quote-border: #06cf9c;
+  --wa-system-bg: rgba(255,255,255,0.92);
+  --wa-bubble-out-tail: #d9fdd3;
+  --wa-bubble-in-tail: #ffffff;
+  --wa-search-hl: #ffd54f;
+  --wa-panel-bg: #f0f2f5;
+  --wa-sender-name: #06cf9c;
+}
+
+/* New 2025 WhatsApp pitch-black dark theme */
+[data-theme="dark"] {
+  --wa-bg: #0a0a0a;
+  --wa-bubble-out: #005c4b;
+  --wa-bubble-in: #1a1a1a;
+  --wa-text: #e9edef;
+  --wa-text-secondary: #8696a0;
+  --wa-sidebar-bg: #0d0d0d;
+  --wa-input-bg: #1a1a1a;
+  --wa-border: #2a2a2a;
+  --wa-icon: #aebac1;
+  --wa-header-bg: #141414;
+  --wa-hover: #1a1a1a;
+  --wa-active: #222222;
+  --wa-outer-bg: #000000;
+  --wa-top-bar: #141414;
+  --wa-quote-bg: #025144;
+  --wa-quote-border: #06cf9c;
+  --wa-system-bg: rgba(20,20,20,0.95);
+  --wa-bubble-out-tail: #005c4b;
+  --wa-bubble-in-tail: #1a1a1a;
+  --wa-search-hl: #cf8d11;
+  --wa-panel-bg: #111111;
+  --wa-sender-name: #06cf9c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, 'Lucida Grande', Arial, 'Ubuntu', 'Cantarell', 'Fira Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  letter-spacing: normal;
+  background: var(--wa-outer-bg);
+  color: var(--wa-text);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+#root { height: 100%; width: 100%; }
+
+.wa-chat-bg {
+  background-color: var(--wa-bg);
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8c0b5' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(134,150,160,.3); border-radius: 3px; }
+
+/* Bubble tails */
+.bubble-out { margin-right: 8px; }
+.bubble-out::after {
+  content: '';
+  position: absolute;
+  top: 0; right: -8px;
+  border-width: 0 0 8px 8px;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--wa-bubble-out-tail);
+}
+.bubble-in { margin-left: 8px; }
+.bubble-in::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -8px;
+  border-width: 0 8px 8px 0;
+  border-style: solid;
+  border-color: transparent var(--wa-bubble-in-tail) transparent transparent;
+}
+
+/* Swap toggle */
+.toggle-switch {
+  position: relative;
+  width: 40px; height: 22px;
+  background: var(--wa-border);
+  border-radius: 11px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+  flex-shrink: 0;
+}
+.toggle-switch.active { background: var(--wa-unread); }
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 18px; height: 18px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle-switch.active::after { transform: translateX(18px); }
+
+mark {
+  background: var(--wa-search-hl);
+  color: inherit;
+  padding: 0 1px;
+  border-radius: 2px;
+}
+
+/* Animations */
+.dropdown-enter {
+  animation: dropIn 0.15s ease-out;
+}
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-4px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.panel-slide {
+  animation: slideIn 0.2s ease-out;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Clickable feedback */
+.tap-highlight {
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.tap-highlight:active {
+  transform: scale(0.97);
+}
